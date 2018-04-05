@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>maya riklis</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+        $("document").ready(function () {
+            $("#myForm").on("submit", formGo);
+        })
+        function formGo(e) {
+            e.preventDefault();
+
+            $(".result").html("");
+            var dataForm = $("#myForm").serialize();
+            var method = $("input[name='method']:checked").val();            
+            $.ajax({
+                method: method,
+                data: dataForm,
+                url: "http://shenkar.html5-book.co.il/2017-2018/dcs/dev_17/service_calculator/calculator.php",
+                success: function (data) {
+                    console.log(data);
+                    $(".result").html("RESULT: " + data.retVal);
+                },
+            })
+        }
+    </script>
+
+</head>
+<body>
+    <form id="myForm" action="2.php" method="get">
+        <div>
+            <h1> FORM CALCULATOR </h1>
+            <input type="radio" name="method" id="method" value="GET" checked /> GET <br/>
+            &nbsp;
+            <input type="radio" name="method" id="method" value="POST" /> POST <br/>
+            &nbsp;
+            <input type="radio" name="method" id="method" value="PUT" /> PUT <br/><br>
+        </div>        
+        <div>
+            <input type="text" name="num1" placeholder="num1" /><br><br>
+            <input type="text" name="num2" placeholder="num2" /><br><br>
+            <input type="text" name="num3" placeholder="num3" /> <br><br>
+            <select name="func">
+                <option value="sum">summerize</option>
+                <option value="avg">avgerage</option>
+                <option value="mult">multiple</option>
+            </select>
+        </div>
+        <div>
+            <br />
+            <input type="submit" value="MY CALCULATE" />
+        </div>
+    </form>
+    <br /><br />
+    <section class="result"></section>    
+</body>
+</html>
